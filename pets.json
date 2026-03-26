@@ -181,5 +181,14 @@
     "pet_image": "images/Elephat.webp",
     "pet_price": 500,
     "pet_size": "Extra Large"
+  },
+  {
+    "pet_id": 23,
+    "pet_name": "Tyrannosaurus Rex",
+    "pet_type": "Dinosaur",
+    "pet_description": "The ultimate backyard guest. Surprisingly quiet when not hunting. Not compatible with small pets or neighbors you actually like.",
+    "pet_image": "images/trex.webp",
+    "pet_price": 2500,
+    "pet_size": "Colossal"
   }
 ]
