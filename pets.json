@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "name": "Luna",
+    "species": "Cat",
+    "description": "A sophisticated tuxedo cat who loves lounging in sunbeams and floral pillows.",
+    "image": "images/cat.webp",
+    "price_per_day": 25
+  },
+  {
+    "id": 2,
+    "name": "Oliver",
+    "species": "Cat",
+    "description": "A curious kitten who enjoys exploring cozy corners and playing hide-and-seek.",
+    "image": "images/cat2.webp",
+    "price_per_day": 20
+  },
+  {
+    "id": 3,
+    "name": "Milo & Otis",
+    "species": "Cat",
+    "description": "A bonded pair of best friends. Perfect for those who want double the cuddles.",
+    "image": "images/cats3.webp",
+    "price_per_day": 40
+  },
+  {
+    "id": 4,
+    "name": "Daisy",
+    "species": "Cow",
+    "description": "A gentle brown calf with an inquisitive nature. Ideal for farm-style therapy days.",
+    "image": "images/cow.webp",
+    "price_per_day": 50
+  },
+  {
+    "id": 5,
+    "name": "Bessie",
+    "species": "Cow",
+    "description": "An incredibly chill black-and-white calf who is a professional couch potato.",
+    "image": "images/cow2.webp",
+    "price_per_day": 55
+  },
+  {
+    "id": 6,
+    "name": "Charlie",
+    "species": "Dog",
+    "description": "A sweet, fluffy companion who comes with his own custom-built indoor balcony.",
+    "image": "images/dog.webp",
+    "price_per_day": 35
+  },
+  {
+    "id": 7,
+    "name": "Cooper",
+    "species": "Dog",
+    "description": "A classic Golden Retriever full of energy and smiles. Ready for a day at the park.",
+    "image": "images/dog2.webp",
+    "price_per_day": 45
+  },
+  {
+    "id": 8,
+    "name": "Waffles",
+    "species": "Dog",
+    "description": "A happy Corgi with a big personality. Enjoys snacks and showing off his short legs.",
+    "image": "images/dog3.webp",
+    "price_per_day": 35
+  },
+  {
+    "id": 9,
+    "name": "Buster & Bella",
+    "species": "Dog",
+    "description": "A pair of playful pups who enjoy their luxury gold-plated water station.",
+    "image": "images/dogs4.webp",
+    "price_per_day": 45
+  },
+  {
+    "id": 10,
+    "name": "Mendalson",
+    "species": "Cat",
+    "description": "A focused grey tabby who takes mealtime very seriously.",
+    "image": "images/favcat.webp",
+    "price_per_day": 25
+  },
+  {
+    "id": 11,
+    "name": "Peter",
+    "species": "Cat",
+    "description": "A sleek black cat who enjoys hanging out in the music room near the drums.",
+    "image": "images/favcat2.webp",
+    "price_per_day": 25
+  },
+  {
+    "id": 12,
+    "name": "Smokey",
+    "species": "Cat",
+    "description": "A long-haired grey cat with a regal presence and a love for comfortable chairs.",
+    "image": "images/favcat3.webp",
+    "price_per_day": 30
+  },
+  {
+    "id": 13,
+    "name": "Silver",
+    "species": "Horse",
+    "description": "A stunning dapple grey horse who is clearly very fond of their own reflection.",
+    "image": "images/horse.webp",
+    "price_per_day": 120
+  },
+  {
+    "id": 14,
+    "name": "Thunder & Lightning",
+    "species": "Horse",
+    "description": "Two powerful dark horses who enjoy the view from their cozy, modern stable.",
+    "image": "images/horses.webp",
+    "price_per_day": 200
+  },
+  {
+    "id": 15,
+    "name": "Marcel",
+    "species": "Monkey",
+    "description": "A curious and intelligent capuchin monkey who loves colorful blankets.",
+    "image": "images/monkey.webp",
+    "price_per_day": 85
+  }
+]

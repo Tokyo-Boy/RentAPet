@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentAPet | About Us</title>
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --primary: #ff6b6b;
+            --primary-soft: #ff8787;
+            --secondary: #4ecdc4;
+            --dark: #2d3436;
+            --light-bg: #f0f2f5;
+            --white: #ffffff;
+            --gray: #636e72;
+            --glass: rgba(255, 255, 255, 0.8);
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light-bg);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1.2rem;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo a {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Mobile Nav */
+        .hamburger { display: block; cursor: pointer; background: none; border: none; z-index: 1100; }
+        .hamburger span { display: block; width: 25px; height: 2px; background-color: var(--dark); margin: 6px 0; transition: var(--transition); }
+        .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100vh;
+            width: 100%;
+            background: var(--white);
+            clip-path: circle(0% at 100% 0%);
+            transition: clip-path 0.6s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        nav.active { clip-path: circle(150% at 100% 0%); }
+        nav ul { list-style: none; text-align: center; }
+        nav ul li { margin: 2rem 0; }
+        nav a { text-decoration: none; color: var(--dark); font-weight: 700; font-size: 1.5rem; transition: var(--transition); }
+        nav a:hover, nav a.active { color: var(--primary); }
+
+        @media (min-width: 992px) {
+            .hamburger { display: none; }
+            nav { position: static; height: auto; width: auto; background: none; clip-path: none; display: block; }
+            nav ul { display: flex; gap: 40px; }
+            nav ul li { margin: 0; }
+            nav a { font-size: 1rem; font-weight: 600; opacity: 0.8; }
+            nav a:hover, nav a.active { opacity: 1; position: relative; }
+            nav a.active::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px; background: var(--primary); }
+        }
+
+        /* --- CONTENT --- */
+        .about-hero {
+            background: var(--white);
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .about-hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; margin-bottom: 20px; }
+        .about-hero p { max-width: 700px; margin: 0 auto; color: var(--gray); font-size: 1.2rem; }
+
+        section { max-width: 1200px; margin: 60px auto; padding: 0 20px; }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .mission-text h2 { font-size: 2.2rem; margin-bottom: 20px; color: var(--dark); }
+        .mission-image img { width: 100%; border-radius: 30px; box-shadow: var(--shadow); }
+
+        /* --- TEAM SECTION --- */
+        .team-title { text-align: center; margin-bottom: 50px; }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .team-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 40px 20px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .team-card:hover { transform: translateY(-10px); box-shadow: var(--shadow); }
+
+        .team-img-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid var(--light-bg);
+            background: #eee; /* Light gray until image loads */
+        }
+
+        .team-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-card h3 { font-size: 1.4rem; margin-bottom: 5px; }
+        .team-card span { color: var(--primary); font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .team-card p { color: var(--gray); margin-top: 15px; font-size: 0.95rem; }
+
+        footer { background: var(--dark); color: var(--white); padding: 4rem 1.5rem 2rem; text-align: center; margin-top: auto; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .team-card, .about-hero { animation: fadeIn 0.8s ease-out forwards; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html"><span>🐾</span> RentAPet</a>
+            </div>
+            <button class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </button>
+            <nav id="nav-menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="pets.html">Available Pets</a></li>
+                    <li><a href="rent.html">Rent a Pet</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="about-hero">
+            <h1>Our Tail-Wagging Story</h1>
+            <p>We believe everyone deserves the joy of a pet, regardless of their living situation or schedule.</p>
+        </div>
+
+        <section class="mission-grid">
+            <div class="mission-text">
+                <h2>Why we started</h2>
+                <p>Founded in 2024, RentAPet began with a simple observation: millions of people love animals but can't commit to full-time ownership due to work, travel, or apartment rules.</p>
+                <br>
+                <p>At the same time, many socialized pets thrive on extra adventure and human interaction. We built a bridge between the two, focusing on safety, animal welfare, and pure happiness.</p>
+            </div>
+            <div class="mission-image">
+                <img src="images/dog2.webp" alt="Happy dog and human">
+            </div>
+        </section>
+
+        <section id="team">
+            <div class="team-title">
+                <h2>Meet the Alpha Team</h2>
+                <p>The humans behind the paws.</p>
+            </div>
+            
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-img-container">
+                        <img src="images/staff1.webp" alt="Sarah Jenkins, Founder & CEO">
+                    </div>
+                    <h3>Sarah Jenkins</h3>
+                    <span>Founder & CEO</span>
+                    <p>A lifelong animal advocate with a vision for flexible companionship.</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-img-container">
+                        <img src="images/staff2.webp" alt="Dr. Marcus Chen, Head of Pet Welfare">
+                    </div>
+                    <h3>Noah Jentleson</h3>
+                    <span>Head of Pet Welfare</span>
+                    <p>Ensuring every pet in our program is happy, healthy, and ready for fun.</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-img-container">
+                        <img src="images/staff3.webp" alt="Emily Rodriguez, Customer Success">
+                    </div>
+                    <h3>Emily Rodriguez</h3>
+                    <span>Customer Success</span>
+                    <p>Helping match the right human energy with the perfect pet personality.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <span style="font-size: 1.2rem; font-weight: 800; display: block; margin-bottom: 10px;">🐾 RentAPet</span>
+        <p>&copy; 2026 RentAPet | Making tails wag since 2024.</p>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+    </script>
+</body>
+</html>

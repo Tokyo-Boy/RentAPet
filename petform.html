@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentAPet | Add a New Friend</title>
+    <style>
+        /* --- CORE THEME (Matching Available Pets) --- */
+        :root {
+            --primary: #ff6b6b;
+            --primary-soft: #ff8787;
+            --secondary: #4ecdc4;
+            --dark: #2d3436;
+            --light-bg: #f0f2f5;
+            --white: #ffffff;
+            --gray: #636e72;
+            --glass: rgba(255, 255, 255, 0.8);
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1.2rem;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo a {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hamburger { display: block; cursor: pointer; background: none; border: none; z-index: 1100; }
+        .hamburger span { display: block; width: 25px; height: 2px; background-color: var(--dark); margin: 6px 0; transition: var(--transition); }
+        .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        nav {
+            position: fixed; top: 0; right: 0; height: 100vh; width: 100%;
+            background: var(--white); clip-path: circle(0% at 100% 0%);
+            transition: clip-path 0.6s ease-in-out;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        nav.active { clip-path: circle(150% at 100% 0%); }
+        nav ul { list-style: none; text-align: center; }
+        nav ul li { margin: 2rem 0; }
+        nav a { text-decoration: none; color: var(--dark); font-weight: 700; font-size: 1.5rem; transition: var(--transition); }
+        nav a:hover { color: var(--primary); }
+
+        @media (min-width: 992px) {
+            .hamburger { display: none; }
+            nav { position: static; height: auto; width: auto; background: none; clip-path: none; display: block; }
+            nav ul { display: flex; gap: 40px; }
+            nav ul li { margin: 0; }
+            nav a { font-size: 1rem; font-weight: 600; opacity: 0.8; }
+            nav a:hover { opacity: 1; }
+        }
+
+        /* --- FORM STYLES --- */
+        .form-section {
+            padding: 4rem 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-card {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.02);
+            position: relative;
+        }
+
+        .form-card h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 1rem; text-align: center; }
+        .form-card p { text-align: center; color: var(--gray); margin-bottom: 2.5rem; }
+
+        .form-group { margin-bottom: 1.8rem; }
+        label { display: block; font-weight: 700; margin-bottom: 0.6rem; font-size: 0.9rem; color: var(--dark); }
+
+        input, select, textarea {
+            width: 100%; padding: 1rem; border: 2px solid #edf2f7;
+            border-radius: 12px; font-family: inherit; font-size: 1rem; transition: var(--transition);
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--secondary); outline: none; background: #fff;
+            box-shadow: 0 0 0 4px rgba(78, 205, 196, 0.1);
+        }
+
+        /* Custom File Upload */
+        .file-input-wrapper {
+            position: relative; background: #f8fafc; border: 2px dashed #cbd5e0;
+            padding: 2rem; border-radius: 12px; text-align: center; transition: var(--transition);
+        }
+        .file-input-wrapper:hover { border-color: var(--secondary); background: #f0fff4; }
+        input[type="file"] { position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0; cursor: pointer; }
+
+        .submit-btn {
+            width: 100%; background: var(--primary); color: white; border: none;
+            padding: 1.2rem; border-radius: 100px; font-weight: 700; font-size: 1.1rem;
+            cursor: pointer; box-shadow: 0 10px 20px rgba(255, 107, 107, 0.2);
+            transition: var(--transition); margin-top: 1rem;
+        }
+        .submit-btn:hover { transform: translateY(-3px); background: var(--primary-soft); }
+
+        /* Success Message Overlay */
+        #success-msg {
+            display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--white); border-radius: 30px; z-index: 10;
+            flex-direction: column; align-items: center; justify-content: center; text-align: center;
+            padding: 2rem;
+        }
+        #success-msg h2 { color: var(--secondary); font-size: 2rem; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo"><a href="index.html"><span>🐾</span> RentAPet</a></div>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <nav id="nav-menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="pets.html">Available Pets</a></li>
+                    <li><a href="rent.html">Rent a Pet</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="form-section">
+        <div class="form-card">
+            <div id="success-msg">
+                <h2>🐾 Success!</h2>
+                <p>Your new friend has been added to the gallery.</p>
+                <button onclick="location.reload()" class="submit-btn" style="width: auto; padding: 0.8rem 2rem;">Add Another</button>
+                <a href="pets.html" style="margin-top: 1rem; display: block; color: var(--gray);">View Gallery</a>
+            </div>
+
+            <form id="petForm">
+                <h1>Register a New Pet</h1>
+                <p>Fill out the details below to add a new friend to our community.</p>
+
+                <div class="form-group">
+                    <label>Pet Name</label>
+                    <input type="text" name="name" placeholder="e.g., Barnaby" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Species</label>
+                    <select name="species">
+                        <option value="Dog">Dog</option>
+                        <option value="Cat">Cat</option>
+                        <option value="Cow">Cow</option>
+                        <option value="Horse">Horse</option>
+                        <option value="Monkey">Monkey</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Daily Rate ($)</label>
+                    <input type="number" name="price_per_day" placeholder="45" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Pet Photo</label>
+                    <div class="file-input-wrapper">
+                        <span id="file-name">Click to upload or drag image here</span>
+                        <input type="file" name="petImage" id="petImage" accept="image/*" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" rows="4" placeholder="Tell us about their personality..." required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">List Pet Now</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // --- NAV LOGIC ---
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // --- FILE NAME DISPLAY ---
+        document.getElementById('petImage').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : "Click to upload or drag image here";
+            document.getElementById('file-name').textContent = fileName;
+        });
+
+        // --- AJAX FORM SUBMISSION ---
+        const petForm = document.getElementById('petForm');
+        const successMsg = document.getElementById('success-msg');
+
+        petForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Create FormData object to handle the image file
+            const formData = new FormData(petForm);
+
+            try {
+                const response = await fetch('/add-pet', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    successMsg.style.display = 'flex';
+                } else {
+                    alert('Something went wrong. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Could not connect to server.');
+            }
+        });
+    </script>
+</body>
+</html>
