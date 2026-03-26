@@ -169,6 +169,7 @@
             width: 100%;
             height: 250px;
             object-fit: cover;
+            background-color: #eee; /* Loading placeholder color */
         }
 
         .pet-info { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
@@ -287,6 +288,13 @@
                     <label for="species-filter">Type of Pet</label>
                     <select id="species-filter">
                         <option value="all">All Animals</option>
+                        <option value="Bear">Bears</option>
+                        <option value="Bird">Birds</option>
+                        <option value="Rabbit">Rabbits</option>
+                        <option value="Kangaroo">Kangaroos</option>
+                        <option value="Reindeer">Reindeer</option>
+                        <option value="Turkey">Turkeys</option>
+                        <hr>
                         <option value="Pet Rock">Pet Rocks</option>
                         <option value="Fish">Fish</option>
                         <option value="Chicken">Chickens</option>
@@ -309,8 +317,7 @@
             </div>
         </div>
 
-        <div class="pet-grid" id="pet-gallery">
-            </div>
+        <div class="pet-grid" id="pet-gallery"></div>
 
         <div style="text-align: center; margin-bottom: 4rem;">
             <a href="petform.html" class="cta-button">+ List Your Pet</a>
@@ -364,7 +371,6 @@
             }
 
             gallery.innerHTML = petsToDisplay.map(pet => {
-                // Unified fallbacks for different JSON keys
                 const name = pet.pet_name || pet.name || "Unnamed Pet";
                 const img = pet.pet_image || pet.image || "images/placeholder.jpg";
                 const type = pet.pet_type || pet.species || pet.type || "Pet";
@@ -374,7 +380,7 @@
 
                 return `
                     <div class="pet-card">
-                        <img src="${img}" alt="${name}" class="pet-image">
+                        <img src="${img}" alt="${name}" class="pet-image" loading="lazy">
                         <div class="pet-info">
                             <span class="species-tag">${type}</span>
                             <h3>${name}</h3>

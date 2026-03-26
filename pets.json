@@ -190,5 +190,77 @@
     "pet_image": "images/trex.webp",
     "pet_price": 2500,
     "pet_size": "Colossal"
+  },
+  {
+    "pet_id": 24,
+    "pet_name": "Yogi",
+    "pet_type": "Bear",
+    "pet_description": "A very independent houseguest. Skilled at opening refrigerators and locating hidden snacks. Not recommended for apartments with thin walls.",
+    "pet_image": "images/Bear.webp",
+    "pet_price": 450,
+    "pet_size": "Large"
+  },
+  {
+    "pet_id": 25,
+    "pet_name": "The Ostrich Squad",
+    "pet_type": "Bird",
+    "pet_description": "Why rent one when you can rent the whole flock? Fast, curious, and excellent at staring contests. Great for large open fields.",
+    "pet_image": "images/Bird.webp",
+    "pet_price": 300,
+    "pet_size": "Large"
+  },
+  {
+    "pet_id": 26,
+    "pet_name": "Cinnabun & Cloud",
+    "pet_type": "Rabbit",
+    "pet_description": "Quiet, soft, and masters of the 'bunny flop.' These two are perfect for a relaxing afternoon in a safe, indoor environment.",
+    "pet_image": "images/Bunny.webp",
+    "pet_price": 45,
+    "pet_size": "Small"
+  },
+  {
+    "pet_id": 27,
+    "pet_name": "Rusty",
+    "pet_type": "Rabbit",
+    "pet_description": "A distinguished gentleman who enjoys lounging on the sofa. Very polite and excellent at listening to all your secrets.",
+    "pet_image": "images/Bunny2.webp",
+    "pet_price": 40,
+    "pet_size": "Small"
+  },
+  {
+    "pet_id": 28,
+    "pet_name": "Patches",
+    "pet_type": "Rabbit",
+    "pet_description": "Our most festive resident. Expert at finding hidden baskets and providing top-tier holiday spirit year-round.",
+    "pet_image": "images/EasterBunny.webp",
+    "pet_price": 55,
+    "pet_size": "Small"
+  },
+  {
+    "pet_id": 29,
+    "pet_name": "Joey & Jack",
+    "pet_type": "Kangaroo",
+    "pet_description": "Perfect for homeowners with high fences. These energetic jumpers are great for lawn maintenance and suburban security.",
+    "pet_image": "images/Kangaroo.webp",
+    "pet_price": 600,
+    "pet_size": "Medium"
+  },
+  {
+    "pet_id": 30,
+    "pet_name": "Rudolph",
+    "pet_type": "Reindeer",
+    "pet_description": "Includes a built-in guidance system for foggy nights. Prefers cold climates and plenty of lichen. Magic not guaranteed but highly suspected.",
+    "pet_image": "images/Rudolph.webp",
+    "pet_price": 1200,
+    "pet_size": "Large"
+  },
+  {
+    "pet_id": 31,
+    "pet_name": "Gobbles",
+    "pet_type": "Turkey",
+    "pet_description": "A very vocal outdoor companion. Great for keeping the garden pest-free and ensuring you never oversleep your alarm.",
+    "pet_image": "images/Turkey.webp",
+    "pet_price": 35,
+    "pet_size": "Medium"
   }
 ]
