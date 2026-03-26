@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentAPet | Home</title>
+    <style>
+        /* --- MOBILE STYLES (Default) --- */
+        :root {
+            --primary-color: #ff6b6b;
+            --secondary-color: #4ecdc4;
+            --dark-text: #2d3436;
+            --light-bg: #f9f9f9;
+            --white: #ffffff;
+            --gray: #636e72;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+        }
+
+        /* Header & Navigation */
+        header {
+            background: var(--white);
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between; /* Space between logo and hamburger */
+            align-items: center;
+        }
+
+        .logo a {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-decoration: none;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Hamburger Button */
+        .hamburger {
+            display: block;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--dark-text);
+            padding: 0;
+        }
+
+        /* Nav Menu Mobile */
+        nav {
+            display: none; /* Hidden by default on mobile */
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+
+        /* When menu is active */
+        nav.active {
+            display: block;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark-text);
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: var(--white);
+        }
+
+        .hero-content h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            line-height: 1.1;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            background-color: #3dbfb6;
+        }
+
+        /* Informational Sections */
+        section {
+            padding: 4rem 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 3rem;
+            font-size: 2rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background: var(--secondary-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 2.5rem 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            color: var(--dark-text);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: #2d3436;
+            color: white;
+            margin-top: 4rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* --- DESKTOP MEDIA QUERY (800px and up) --- */
+        @media (min-width: 800px) {
+            .hamburger {
+                display: none; /* Hide hamburger on desktop */
+            }
+
+            nav {
+                display: block; /* Show menu on desktop */
+                position: static;
+                width: auto;
+                background: none;
+                box-shadow: none;
+            }
+
+            nav ul {
+                flex-direction: row;
+                padding: 0;
+                gap: 30px;
+            }
+
+            nav a {
+                font-size: 0.95rem;
+            }
+
+            .hero {
+                flex-direction: row;
+                align-items: center;
+                text-align: left;
+                padding: 6rem 2rem;
+                gap: 4rem;
+            }
+
+            .hero-content {
+                flex: 1;
+            }
+
+            .hero-image {
+                flex: 1.2;
+                height: 500px;
+            }
+
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html"><span>🐾</span> RentAPet</a>
+            </div>
+            
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+                &#9776;
+            </button>
+
+            <nav id="nav-menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="pets.html">Available Pets</a></li>
+                    <li><a href="rent.html">Rent a Pet</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Rent a Best Friend for the Day</h1>
+                <p>Not ready for the 15-year commitment? Get all the tail wags and cuddles with our flexible pet rental service. Perfect for weekend hikes or cozy couch snuggles.</p>
+                <a href="pets.html" class="cta-button">Find Your Match</a>
+            </div>
+            <img src="images/Hero.webp" alt="Happy dog in a sunny field" class="hero-image">
+        </section>
+
+        <section id="how-it-works">
+            <h2>How It Works</h2>
+            <div class="grid">
+                <div class="card">
+                    <span class="benefit-icon">🔍</span>
+                    <h3>1. Browse</h3>
+                    <p>Look through our directory of vetted, friendly pets looking for adventure.</p>
+                </div>
+                <div class="card">
+                    <span class="benefit-icon">📅</span>
+                    <h3>2. Book</h3>
+                    <p>Pick a date and time that fits your schedule. We handle the paperwork.</p>
+                </div>
+                <div class="card">
+                    <span class="benefit-icon">🐕</span>
+                    <h3>3. Bond</h3>
+                    <p>Pick up your new pal and head to the park for a day of fun!</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="benefits">
+            <h2>Why Rent a Pet?</h2>
+            <div class="grid">
+                <div class="card">
+                    <span class="benefit-icon">🏠</span>
+                    <h3>Apartment Friendly</h3>
+                    <p>Enjoy the company of a pet even if your home doesn't allow full-time residency.</p>
+                </div>
+                <div class="card">
+                    <span class="benefit-icon">🏃</span>
+                    <h3>Stay Active</h3>
+                    <p>Need a motivation boost for your walk? Our dogs are always ready to hit the trail.</p>
+                </div>
+                <div class="card">
+                    <span class="benefit-icon">✨</span>
+                    <h3>Stress Relief</h3>
+                    <p>Spending a few hours with a companion is proven to boost happiness and lower stress.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <span class="footer-logo">🐾 RentAPet</span>
+        <p>&copy; 2026 RentAPet | All rights reserved.</p>
+        <p>Making tails wag since 2024.</p>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu if a link is clicked (useful for single-page apps or mobile experience)
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
