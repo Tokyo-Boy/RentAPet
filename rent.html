@@ -146,7 +146,7 @@
         }
 
         /* --- CARDS & UI --- */
-        .card { background: var(--white); border-radius: 20px; padding: 30px; box-shadow: var(--shadow); margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.03); }
+        .card { background: var(--white); border-radius: 20px; padding: 30px; box-shadow: var(--shadow); margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.03); position: relative; }
         h2 { margin-bottom: 20px; font-size: 1.5rem; display: flex; align-items: center; gap: 10px; font-weight: 800; }
         .pet-preview { display: flex; gap: 20px; align-items: center; }
         .pet-preview img { width: 100px; height: 100px; border-radius: 15px; object-fit: cover; background: #eee; }
@@ -158,6 +158,13 @@
             border-radius: 12px; font-size: 1rem; transition: var(--transition);
         }
         input:focus { border-color: var(--secondary); outline: none; }
+        
+        /* Validation Error Style */
+        .input-error { border-color: var(--primary) !important; animation: shake 0.4s ease-in-out; }
+        #error-msg { 
+            color: var(--primary); font-size: 0.85rem; font-weight: 700; margin-top: 15px; 
+            display: none; text-align: center; animation: fadeIn 0.3s ease;
+        }
 
         /* --- PAYMENT OPTIONS --- */
         .payment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 10px; margin-bottom: 20px; }
@@ -169,6 +176,9 @@
         .pay-option:hover { border-color: var(--secondary); }
         .pay-option.active { border-color: var(--primary); background: rgba(255,107,107,0.05); color: var(--primary); }
         .pay-icon { font-size: 1.5rem; display: block; margin-bottom: 5px; }
+
+        #payment-forms-container > div { display: none; animation: fadeIn 0.4s ease; }
+        #payment-forms-container > div.active-form { display: block; }
 
         /* --- SUCCESS VIEW --- */
         #success-view { display: none; text-align: center; max-width: 600px; margin: 60px auto; animation: fadeIn 0.8s ease; padding: 0 20px; }
@@ -194,8 +204,14 @@
             justify-content: center; z-index: 2000; 
         }
         .spinner { width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        
         @keyframes spin { 100% { transform: rotate(360deg); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
     </style>
 </head>
 <body>
@@ -239,11 +255,11 @@
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px;">
                         <div class="form-group">
                             <label>Pickup Date</label>
-                            <input type="date" id="start-date" value="2026-03-27">
+                            <input type="date" id="start-date" value="2026-03-27" required>
                         </div>
                         <div class="form-group">
                             <label>Return Date</label>
-                            <input type="date" id="end-date" value="2026-03-29">
+                            <input type="date" id="end-date" value="2026-03-29" required>
                         </div>
                     </div>
                 </div>
@@ -251,29 +267,55 @@
                 <div class="card">
                     <h2>Payment Method</h2>
                     <div class="payment-grid">
-                        <div class="pay-option active" onclick="setPayment(this, 'Credit Card')">
+                        <div class="pay-option active" data-method="card" onclick="setPayment(this, 'Credit Card')">
                             <span class="pay-icon">💳</span>Card
                         </div>
-                        <div class="pay-option" onclick="setPayment(this, 'PayPal')">
+                        <div class="pay-option" data-method="paypal" onclick="setPayment(this, 'PayPal')">
                             <span class="pay-icon">🅿️</span>PayPal
                         </div>
-                        <div class="pay-option" onclick="setPayment(this, 'Apple Pay')">
+                        <div class="pay-option" data-method="apple" onclick="setPayment(this, 'Apple Pay')">
                             <span class="pay-icon">🍎</span>Apple
                         </div>
-                        <div class="pay-option" onclick="setPayment(this, 'Bitcoin')">
+                        <div class="pay-option" data-method="crypto" onclick="setPayment(this, 'Bitcoin')">
                             <span class="pay-icon">🪙</span>Crypto
                         </div>
                     </div>
 
-                    <div id="card-form">
-                        <div class="form-group">
-                            <label>Cardholder Name</label>
-                            <input type="text" placeholder="Card Holder">
+                    <div id="payment-forms-container">
+                        <div id="form-card" class="active-form">
+                            <div class="form-group">
+                                <label>Cardholder Name</label>
+                                <input type="text" class="pay-input" placeholder="Full Name on Card" required>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px;">
+                                <input type="text" class="pay-input" placeholder="Card Number" required>
+                                <input type="text" class="pay-input" placeholder="MM/YY" required>
+                                <input type="text" class="pay-input" placeholder="CVC" required>
+                            </div>
                         </div>
-                        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px;">
-                            <input type="text" placeholder="Card Number">
-                            <input type="text" placeholder="MM/YY">
-                            <input type="text" placeholder="CVC">
+
+                        <div id="form-paypal">
+                            <div class="form-group">
+                                <label>PayPal Email</label>
+                                <input type="email" class="pay-input" placeholder="email@example.com">
+                            </div>
+                            <p style="font-size: 0.8rem; color: var(--gray);">You will be redirected to PayPal to authorize this payment.</p>
+                        </div>
+
+                        <div id="form-apple">
+                            <div class="form-group">
+                                <label>Apple ID / Device Email</label>
+                                <input type="email" class="pay-input" placeholder="apple-id@icloud.com">
+                            </div>
+                            <p style="font-size: 0.8rem; color: var(--gray);">Please confirm the payment on your Apple device after clicking pay.</p>
+                        </div>
+
+                        <div id="form-crypto">
+                            <div class="form-group">
+                                <label>Wallet Address (BTC/ETH)</label>
+                                <input type="text" class="pay-input" placeholder="0x... or Wallet ID">
+                            </div>
+                            <p style="font-size: 0.8rem; color: var(--gray);">Ensure you are sending from a supported network.</p>
                         </div>
                     </div>
                 </div>
@@ -298,6 +340,7 @@
                         <span>Total</span>
                         <span id="total-display">$0.00</span>
                     </div>
+                    <p id="error-msg">⚠️ Please fill in all payment details.</p>
                     <button class="btn-confirm" style="margin-top: 20px;" onclick="processPayment()">Confirm & Pay</button>
                 </div>
             </aside>
@@ -361,14 +404,11 @@
                 const res = await fetch('pets.json');
                 const pets = await res.json();
                 
-                // Search both possible ID keys
                 currentPet = pets.find(p => (p.pet_id == petId || p.id == petId)) || pets[0];
                 
                 const name = currentPet.pet_name || currentPet.name;
                 const image = currentPet.pet_image || currentPet.image;
                 const species = currentPet.pet_type || currentPet.species;
-                
-                // CRITICAL FIX: Use Nullish Coalescing (??) to allow 0 to pass as a valid value
                 const price = currentPet.pet_price ?? currentPet.price_per_day ?? 0;
 
                 document.getElementById('pet-summary').innerHTML = `
@@ -393,9 +433,8 @@
             let days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             if (days < 1 || isNaN(days)) days = 1;
             
-            // CRITICAL FIX: Ensure 0 isn't skipped by using ?? instead of ||
             const dailyPrice = currentPet.pet_price ?? currentPet.price_per_day ?? 0;
-            const total = (days * parseFloat(dailyPrice)) + 5; // + $5 service fee
+            const total = (days * parseFloat(dailyPrice)) + 5; 
             
             document.getElementById('days-display').textContent = `${days} day${days > 1 ? 's' : ''}`;
             document.getElementById('total-display').textContent = `$${total.toFixed(2)}`;
@@ -403,12 +442,46 @@
 
         function setPayment(el, method) {
             selectedMethod = method;
+            document.getElementById('error-msg').style.display = 'none';
+            
             document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('active'));
             el.classList.add('active');
-            document.getElementById('card-form').style.display = (method === 'Credit Card') ? 'block' : 'none';
+
+            const methodKey = el.getAttribute('data-method');
+            document.querySelectorAll('#payment-forms-container > div').forEach(form => {
+                form.classList.remove('active-form');
+                form.querySelectorAll('input').forEach(input => {
+                    input.required = false;
+                    input.classList.remove('input-error');
+                });
+            });
+
+            const activeForm = document.getElementById(`form-${methodKey}`);
+            activeForm.classList.add('active-form');
+            activeForm.querySelectorAll('input').forEach(input => input.required = true);
         }
 
         function processPayment() {
+            const activeForm = document.querySelector('.active-form');
+            const inputs = activeForm.querySelectorAll('input[required]');
+            const errorMsg = document.getElementById('error-msg');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.classList.add('input-error');
+                    isValid = false;
+                } else {
+                    input.classList.remove('input-error');
+                }
+            });
+
+            if (!isValid) {
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            errorMsg.style.display = 'none';
             const loader = document.getElementById('loader');
             loader.style.display = 'flex';
             
