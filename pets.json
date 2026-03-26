@@ -118,5 +118,68 @@
     "description": "A curious and intelligent capuchin monkey who loves colorful blankets.",
     "image": "images/monkey.webp",
     "price_per_day": 85
+  },
+  {
+    "pet_id": 16,
+    "pet_name": "Rocky",
+    "pet_type": "Pet Rock",
+    "pet_description": "A well-rounded individual with a very stable personality. Loves lounging on denim and staring contests.",
+    "pet_image": "/images/Rock.webp",
+    "pet_price": 5,
+    "pet_size": "Small"
+  },
+  {
+    "pet_id": 17,
+    "pet_name": "Stoneface",
+    "pet_type": "Pet Rock",
+    "pet_description": "Slightly edgy with a rugged exterior. He is a great listener and never interrupts.",
+    "pet_image": "/images/Rock2.webp",
+    "pet_price": 5,
+    "pet_size": "Medium"
+  },
+  {
+    "pet_id": 18,
+    "pet_name": "Pebbles",
+    "pet_type": "Pet Rock",
+    "pet_description": "Low-profile and very chill. Prefers soft surfaces and quiet environments.",
+    "pet_image": "/images/Rock3.webp",
+    "pet_price": 0,
+    "pet_size": "Small"
+  },
+  {
+    "pet_id": 19,
+    "pet_name": "Goldie & Friends",
+    "pet_type": "Fish",
+    "pet_description": "A vibrant pair of goldfish. Great for adding movement and color to any desk space.",
+    "pet_image": "/images/Fish.webp",
+    "pet_price": 10,
+    "pet_size": "Small"
+  },
+  {
+    "pet_id": 20,
+    "pet_name": "Bubbles",
+    "pet_type": "Fish",
+    "pet_description": "A solitary, majestic goldfish who enjoys minimalist decor and clean water.",
+    "pet_image": "/images/Fish2.webp",
+    "pet_price": 8,
+    "pet_size": "Small"
+  },
+  {
+    "pet_id": 21,
+    "pet_name": "The Chicken Club",
+    "pet_type": "Chicken",
+    "pet_description": "A lively flock of chickens. Perfect for those looking for a rustic, backyard experience.",
+    "pet_image": "/images/Chickens.webp",
+    "pet_price": 15,
+    "pet_size": "Large"
+  },
+  {
+    "pet_id": 22,
+    "pet_name": "Bismuth & Barnaby",
+    "pet_type": "Elephant",
+    "pet_description": "For the truly ambitious renter. These gentle giants require a very large backyard and lots of peanuts.",
+    "pet_image": "/images/Elephat.webp",
+    "pet_price": 500,
+    "pet_size": "Extra Large"
   }
 ]

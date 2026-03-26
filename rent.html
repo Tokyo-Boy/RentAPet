@@ -284,7 +284,7 @@
                     <h2>Summary</h2>
                     <div class="summary-row">
                         <span>Daily Rate</span>
-                        <span id="rate-display">$0</span>
+                        <span id="rate-display">$0.00</span>
                     </div>
                     <div class="summary-row">
                         <span>Rental Period</span>
@@ -296,7 +296,7 @@
                     </div>
                     <div class="total-row summary-row">
                         <span>Total</span>
-                        <span id="total-display">$0</span>
+                        <span id="total-display">$0.00</span>
                     </div>
                     <button class="btn-confirm" style="margin-top: 20px;" onclick="processPayment()">Confirm & Pay</button>
                 </div>
@@ -356,20 +356,29 @@
         let selectedMethod = 'Credit Card';
 
         async function init() {
-            const petId = new URLSearchParams(window.location.search).get('id') || 1;
+            const petId = new URLSearchParams(window.location.search).get('id');
             try {
                 const res = await fetch('pets.json');
                 const pets = await res.json();
-                currentPet = pets.find(p => p.id == petId) || pets[0];
                 
+                // Search both possible ID keys
+                currentPet = pets.find(p => (p.pet_id == petId || p.id == petId)) || pets[0];
+                
+                const name = currentPet.pet_name || currentPet.name;
+                const image = currentPet.pet_image || currentPet.image;
+                const species = currentPet.pet_type || currentPet.species;
+                
+                // CRITICAL FIX: Use Nullish Coalescing (??) to allow 0 to pass as a valid value
+                const price = currentPet.pet_price ?? currentPet.price_per_day ?? 0;
+
                 document.getElementById('pet-summary').innerHTML = `
-                    <img src="${currentPet.image}" alt="${currentPet.name}">
+                    <img src="${image}" alt="${name}">
                     <div>
-                        <h3 style="font-size: 1.5rem;">${currentPet.name}</h3>
-                        <p style="color:var(--gray)">${currentPet.species} Rental</p>
+                        <h3 style="font-size: 1.5rem;">${name}</h3>
+                        <p style="color:var(--gray)">${species} Rental</p>
                     </div>
                 `;
-                document.getElementById('rate-display').textContent = `$${currentPet.price_per_day}`;
+                document.getElementById('rate-display').textContent = `$${parseFloat(price).toFixed(2)}`;
                 updateTotal();
             } catch (e) { 
                 console.error("Could not load pet data."); 
@@ -384,7 +393,10 @@
             let days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             if (days < 1 || isNaN(days)) days = 1;
             
-            const total = (days * currentPet.price_per_day) + 5;
+            // CRITICAL FIX: Ensure 0 isn't skipped by using ?? instead of ||
+            const dailyPrice = currentPet.pet_price ?? currentPet.price_per_day ?? 0;
+            const total = (days * parseFloat(dailyPrice)) + 5; // + $5 service fee
+            
             document.getElementById('days-display').textContent = `${days} day${days > 1 ? 's' : ''}`;
             document.getElementById('total-display').textContent = `$${total.toFixed(2)}`;
         }
@@ -404,7 +416,8 @@
                 loader.style.display = 'none';
                 document.getElementById('checkout-view').style.display = 'none';
                 document.getElementById('conf-num').textContent = 'RP-' + Math.random().toString(36).substr(2, 9).toUpperCase();
-                document.getElementById('rec-pet').textContent = currentPet.name;
+                
+                document.getElementById('rec-pet').textContent = currentPet.pet_name || currentPet.name;
                 document.getElementById('rec-method').textContent = selectedMethod;
                 document.getElementById('rec-total').textContent = document.getElementById('total-display').textContent;
                 document.getElementById('success-view').style.display = 'block';

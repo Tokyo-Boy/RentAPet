@@ -280,17 +280,21 @@
             <div class="filter-container">
                 <div class="filter-group">
                     <label for="search">Search Name</label>
-                    <input type="text" id="search" placeholder="e.g. Buddy...">
+                    <input type="text" id="search" placeholder="e.g. Rocky...">
                 </div>
                 
                 <div class="filter-group">
                     <label for="species-filter">Type of Pet</label>
                     <select id="species-filter">
                         <option value="all">All Animals</option>
+                        <option value="Pet Rock">Pet Rocks</option>
+                        <option value="Fish">Fish</option>
+                        <option value="Chicken">Chickens</option>
+                        <option value="Elephant">Elephants</option>
                         <option value="Dog">Dogs</option>
                         <option value="Cat">Cats</option>
-                        <option value="Horse">Horses</option>
                         <option value="Cow">Cows</option>
+                        <option value="Horse">Horses</option>
                         <option value="Monkey">Monkeys</option>
                     </select>
                 </div>
@@ -298,9 +302,9 @@
                 <div class="filter-group">
                     <div style="display: flex; justify-content: space-between;">
                         <label for="price-filter">Max Price</label>
-                        <span id="price-value">$200</span>
+                        <span id="price-value">$500</span>
                     </div>
-                    <input type="range" id="price-filter" min="0" max="200" value="200">
+                    <input type="range" id="price-filter" min="0" max="500" value="500">
                 </div>
             </div>
         </div>
@@ -338,6 +342,8 @@
             try {
                 const response = await fetch('pets.json'); 
                 allPets = await response.json();
+                
+                console.log("Data loaded successfully:", allPets);
                 displayPets(allPets); 
                 
             } catch (error) {
@@ -349,7 +355,7 @@
         function displayPets(petsToDisplay) {
             const gallery = document.getElementById('pet-gallery');
             
-            if (petsToDisplay.length === 0) {
+            if (!petsToDisplay || petsToDisplay.length === 0) {
                 gallery.innerHTML = `
                     <div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
                         <p style="font-size: 1.2rem; color: var(--gray);">No pets found matching your criteria. Try adjusting your filters!</p>
@@ -357,20 +363,30 @@
                 return;
             }
 
-            gallery.innerHTML = petsToDisplay.map(pet => `
-                <div class="pet-card">
-                    <img src="${pet.image}" alt="${pet.name}" class="pet-image">
-                    <div class="pet-info">
-                        <span class="species-tag">${pet.species}</span>
-                        <h3>${pet.name}</h3>
-                        <p class="pet-desc">${pet.description}</p>
-                        <div class="pet-footer">
-                            <div class="price">$${pet.price_per_day} <span>/ day</span></div>
-                            <a href="rent.html?id=${pet.id}" class="rent-btn">Rent Me</a>
+            gallery.innerHTML = petsToDisplay.map(pet => {
+                // Unified fallbacks for different JSON keys
+                const name = pet.pet_name || pet.name || "Unnamed Pet";
+                const img = pet.pet_image || pet.image || "images/placeholder.jpg";
+                const type = pet.pet_type || pet.species || pet.type || "Pet";
+                const desc = pet.pet_description || pet.description || "No description provided.";
+                const price = pet.pet_price || pet.price_per_day || pet.price || 0;
+                const id = pet.pet_id || pet.id || "#";
+
+                return `
+                    <div class="pet-card">
+                        <img src="${img}" alt="${name}" class="pet-image">
+                        <div class="pet-info">
+                            <span class="species-tag">${type}</span>
+                            <h3>${name}</h3>
+                            <p class="pet-desc">${desc}</p>
+                            <div class="pet-footer">
+                                <div class="price">$${price} <span>/ day</span></div>
+                                <a href="rent.html?id=${id}" class="rent-btn">Rent Me</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         // --- FILTER LOGIC ---
@@ -384,14 +400,17 @@
             const selectedSpecies = speciesSelect.value;
             const maxPrice = parseInt(priceRange.value);
 
-            // Update UI label
             priceLabel.textContent = `$${maxPrice}`;
 
             const filtered = allPets.filter(pet => {
-                const matchesSearch = pet.name.toLowerCase().includes(searchTerm) || 
-                                     pet.description.toLowerCase().includes(searchTerm);
-                const matchesSpecies = selectedSpecies === 'all' || pet.species === selectedSpecies;
-                const matchesPrice = pet.price_per_day <= maxPrice;
+                const name = (pet.pet_name || pet.name || "").toLowerCase();
+                const desc = (pet.pet_description || pet.description || "").toLowerCase();
+                const type = (pet.pet_type || pet.species || pet.type || "");
+                const price = (pet.pet_price || pet.price_per_day || pet.price || 0);
+
+                const matchesSearch = name.includes(searchTerm) || desc.includes(searchTerm);
+                const matchesSpecies = selectedSpecies === 'all' || type === selectedSpecies;
+                const matchesPrice = price <= maxPrice;
                 
                 return matchesSearch && matchesSpecies && matchesPrice;
             });
@@ -399,12 +418,10 @@
             displayPets(filtered);
         }
 
-        // Event Listeners for Filters
         searchInput.addEventListener('input', applyFilters);
         speciesSelect.addEventListener('change', applyFilters);
         priceRange.addEventListener('input', applyFilters);
 
-        // Initial Load
         loadPets();
     </script>
 </body>
