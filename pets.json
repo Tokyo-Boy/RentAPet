@@ -262,5 +262,50 @@
     "pet_image": "images/Turkey.webp",
     "pet_price": 35,
     "pet_size": "Medium"
+  },
+  {
+    "pet_id": 32,
+    "pet_name": "Gort",
+    "pet_type": "Capybara",
+    "pet_description": "The ultimate diplomat of the animal kingdom. Extremely chill, social, and happy to coexist with literally anyone.",
+    "pet_image": "images/Animal.webp",
+    "pet_price": 150,
+    "pet_size": "Medium"
+  },
+  {
+    "pet_id": 33,
+    "pet_name": "The Champion",
+    "pet_type": "Chicken Jockey",
+    "pet_description": "A tiny green warrior riding a very confused bird. Great for home security, though he tends to be a bit aggressive in the ring.",
+    "pet_image": "images/ChickenJockey.webp",
+    "pet_price": 75,
+    "pet_size": "Small"
+  },
+  {
+    "pet_id": 34,
+    "pet_name": "Boomer",
+    "pet_type": "Creeper",
+    "pet_description": "Very shy. Tends to get explosive when he's excited to see you. Best kept in open-air environments away from precious structures.",
+    "pet_image": "images/Creeper.webp",
+    "pet_price": 0,
+    "pet_size": "Medium"
+  },
+  {
+    "pet_id": 35,
+    "pet_name": "Laboon",
+    "pet_type": "Whale",
+    "pet_description": "Requires a very large swimming pool (the ocean). Great at singing and water filtration. Not recommended for indoor tanks.",
+    "pet_image": "images/Whale.webp",
+    "pet_price": 5000,
+    "pet_size": "Colossal"
+  },
+  {
+    "pet_id": 36,
+    "pet_name": "Bruce",
+    "pet_type": "Shark",
+    "pet_description": "A misunderstood predator with a smile. Remember: fish are friends, not food. Strictly an aquatic roommate.",
+    "pet_image": "images/Shark.webp",
+    "pet_price": 1000,
+    "pet_size": "Extra Large"
   }
 ]

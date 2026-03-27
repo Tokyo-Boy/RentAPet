@@ -169,7 +169,7 @@
             width: 100%;
             height: 250px;
             object-fit: cover;
-            background-color: #eee; /* Loading placeholder color */
+            background-color: #eee;
         }
 
         .pet-info { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
@@ -281,29 +281,35 @@
             <div class="filter-container">
                 <div class="filter-group">
                     <label for="search">Search Name</label>
-                    <input type="text" id="search" placeholder="e.g. Rocky...">
+                    <input type="text" id="search" placeholder="e.g. Gort...">
                 </div>
                 
                 <div class="filter-group">
                     <label for="species-filter">Type of Pet</label>
                     <select id="species-filter">
                         <option value="all">All Animals</option>
-                        <option value="Bear">Bears</option>
-                        <option value="Bird">Birds</option>
+                        <option value="Capybara">Capybaras</option>
+                        <option value="Chicken Jockey">Chicken Jockeys</option>
+                        <option value="Creeper">Creepers</option>
+                        <option value="Dinosaur">Dinosaurs</option>
+                        <option value="Whale">Whales</option>
+                        <option value="Shark">Sharks</option>
+                        <hr>
+                        <option value="Cat">Cats</option>
+                        <option value="Dog">Dogs</option>
                         <option value="Rabbit">Rabbits</option>
+                        <option value="Horse">Horses</option>
+                        <option value="Bird">Birds</option>
+                        <option value="Bear">Bears</option>
+                        <option value="Elephant">Elephants</option>
+                        <option value="Fish">Fish</option>
+                        <option value="Pet Rock">Pet Rocks</option>
+                        <option value="Cow">Cows</option>
+                        <option value="Monkey">Monkeys</option>
                         <option value="Kangaroo">Kangaroos</option>
                         <option value="Reindeer">Reindeer</option>
                         <option value="Turkey">Turkeys</option>
-                        <hr>
-                        <option value="Pet Rock">Pet Rocks</option>
-                        <option value="Fish">Fish</option>
                         <option value="Chicken">Chickens</option>
-                        <option value="Elephant">Elephants</option>
-                        <option value="Dog">Dogs</option>
-                        <option value="Cat">Cats</option>
-                        <option value="Cow">Cows</option>
-                        <option value="Horse">Horses</option>
-                        <option value="Monkey">Monkeys</option>
                     </select>
                 </div>
 
@@ -371,11 +377,12 @@
             }
 
             gallery.innerHTML = petsToDisplay.map(pet => {
+                // FALLBACK LOGIC: Check new key names, then old key names
                 const name = pet.pet_name || pet.name || "Unnamed Pet";
                 const img = pet.pet_image || pet.image || "images/placeholder.jpg";
                 const type = pet.pet_type || pet.species || pet.type || "Pet";
                 const desc = pet.pet_description || pet.description || "No description provided.";
-                const price = pet.pet_price || pet.price_per_day || pet.price || 0;
+                const price = pet.pet_price || pet.price || 0;
                 const id = pet.pet_id || pet.id || "#";
 
                 return `
@@ -409,10 +416,11 @@
             priceLabel.textContent = `$${maxPrice}`;
 
             const filtered = allPets.filter(pet => {
+                // FALLBACK LOGIC FOR FILTERING
                 const name = (pet.pet_name || pet.name || "").toLowerCase();
                 const desc = (pet.pet_description || pet.description || "").toLowerCase();
                 const type = (pet.pet_type || pet.species || pet.type || "");
-                const price = (pet.pet_price || pet.price_per_day || pet.price || 0);
+                const price = (pet.pet_price || pet.price || 0);
 
                 const matchesSearch = name.includes(searchTerm) || desc.includes(searchTerm);
                 const matchesSpecies = selectedSpecies === 'all' || type === selectedSpecies;
