@@ -8,6 +8,14 @@
     "price_per_day": 25
   },
   {
+    "id": 37,
+    "name": "Fire Alarm",
+    "species": "Cat",
+    "description": "An incredibly loud ginger cat who screams at 3:00 AM for no reason. High energy, zero volume control.",
+    "image": "images/fire_alarm_cat.webp",
+    "price_per_day": 15
+  },
+  {
     "id": 2,
     "name": "Oliver",
     "species": "Cat",

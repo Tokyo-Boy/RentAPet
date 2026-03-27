@@ -347,10 +347,9 @@
         });
 
         // --- HELPER: ROBUST PRICE CLEANER ---
-        // This ensures that "$150", "150.00", and "150" all become the number 150.
         function cleanPrice(val) {
             if (typeof val === 'number') return val;
-            if (!val) return 0;
+            if (val === undefined || val === null) return 0;
             // Remove everything except numbers and decimals
             const cleaned = val.toString().replace(/[^0-9.]/g, '');
             return parseFloat(cleaned) || 0;
@@ -365,10 +364,7 @@
             try {
                 const response = await fetch('pets.json'); 
                 allPets = await response.json();
-                
-                console.log("Data loaded successfully:", allPets);
                 displayPets(allPets); 
-                
             } catch (error) {
                 console.error("Error loading pets:", error);
                 gallery.innerHTML = "<p>Oops! We couldn't load the pets right now. Please try again later.</p>";
@@ -387,13 +383,16 @@
             }
 
             gallery.innerHTML = petsToDisplay.map(pet => {
-                // FALLBACK LOGIC
+                // FALLBACK LOGIC FOR KEYS
                 const name = pet.pet_name || pet.name || "Unnamed Pet";
                 const img = pet.pet_image || pet.image || "images/placeholder.jpg";
                 const type = pet.pet_type || pet.species || pet.type || "Pet";
                 const desc = pet.pet_description || pet.description || "No description provided.";
-                const rawPrice = pet.pet_price || pet.price || 0;
-                const price = cleanPrice(rawPrice); // Clean it for display
+                
+                // CHECKING ALL POSSIBLE PRICE KEYS IN YOUR JSON
+                const rawPrice = pet.price_per_day ?? pet.pet_price ?? pet.price ?? 0;
+                const price = cleanPrice(rawPrice);
+                
                 const id = pet.pet_id || pet.id || "#";
 
                 return `
@@ -427,12 +426,12 @@
             priceLabel.textContent = `$${maxPrice}`;
 
             const filtered = allPets.filter(pet => {
-                // FALLBACK & CLEANING LOGIC
                 const name = (pet.pet_name || pet.name || "").toLowerCase();
                 const desc = (pet.pet_description || pet.description || "").toLowerCase();
                 const type = (pet.pet_type || pet.species || pet.type || "");
-                const rawPrice = (pet.pet_price || pet.price || 0);
-                const price = cleanPrice(rawPrice); // Convert "$150" to 150 for math comparison
+                
+                const rawPrice = pet.price_per_day ?? pet.pet_price ?? pet.price ?? 0;
+                const price = cleanPrice(rawPrice);
 
                 const matchesSearch = name.includes(searchTerm) || desc.includes(searchTerm);
                 const matchesSpecies = selectedSpecies === 'all' || type === selectedSpecies;
