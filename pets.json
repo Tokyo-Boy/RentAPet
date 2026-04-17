@@ -294,7 +294,7 @@
     "pet_name": "Boomer",
     "pet_type": "Creeper",
     "pet_description": "Very shy. Tends to get explosive when he's excited to see you. Best kept in open-air environments away from precious structures.",
-    "pet_image": "images/Creeper.webp",
+    "pet_image": "images/Creeper2.webp",
     "pet_price": 0,
     "pet_size": "Medium"
   },
@@ -315,5 +315,50 @@
     "pet_image": "images/Shark.webp",
     "pet_price": 1000,
     "pet_size": "Extra Large"
+  },
+  {
+    "pet_id": 37,
+    "pet_name": "Major",
+    "pet_type": "German Shepherd",
+    "pet_description": "A noble and loyal companion. He's excellent at patrolling the backyard and will never let a tennis ball go un-chased.",
+    "pet_image": "images/German_Shepherd_1.webp",
+    "pet_price": 75,
+    "pet_size": "Large"
+  },
+  {
+    "pet_id": 38,
+    "pet_name": "Echo",
+    "pet_type": "Dolphin",
+    "pet_description": "The ultimate aquatic entertainer. Intelligent, playful, and always ready for a high-speed swim through the waves.",
+    "pet_image": "images/Dolphin.webp",
+    "pet_price": 500,
+    "pet_size": "Large"
+  },
+  {
+    "pet_id": 39,
+    "pet_name": "Hamlet",
+    "pet_type": "Pig",
+    "pet_description": "A charming farmyard friend who loves dandelions and sunbathing. Surprisingly smart and always down for a belly rub.",
+    "pet_image": "images/Pig.webp",
+    "pet_price": 45,
+    "pet_size": "Medium"
+  },
+  {
+    "pet_id": 40,
+    "pet_name": "Sarge",
+    "pet_type": "German Shepherd",
+    "pet_description": "A focused professional with a heart of gold. Sarge is highly disciplined and takes his job as your best friend very seriously.",
+    "pet_image": "images/German_Shepherd_2.webp",
+    "pet_price": 80,
+    "pet_size": "Large"
+  },
+  {
+    "pet_id": 41,
+    "pet_name": "Casper",
+    "pet_type": "Hamster",
+    "pet_description": "The perfect pet for small apartments. We're 90% sure he's in the cage. Comes with an empty wheel that occasionally spins on its own. (Non-refundable)",
+    "pet_image": "images/invisible_hamster.webp",
+    "pet_price": 50,
+    "pet_size": "Small"
   }
 ]
